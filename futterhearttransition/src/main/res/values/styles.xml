@@ -1,0 +1,11 @@
+<resources>
+
+    <declare-styleable name="HeartLayout">
+        <attr name="xRand" format="dimension"/>
+        <attr name="animLengthRand" format="dimension"/>
+        <attr name="xPointFactor" format="dimension"/>
+        <attr name="animLength" format="dimension"/>
+        <attr name="bezierFactor" format="integer"/>
+    </declare-styleable>
+
+</resources>
