@@ -7,3 +7,8 @@
 /build
 /captures
 .externalNativeBuild
+.local.properties
+.idea/vcs.xml
+app/libs/
+app/src/main/res/drawable/
+futterhearttransition/libs/

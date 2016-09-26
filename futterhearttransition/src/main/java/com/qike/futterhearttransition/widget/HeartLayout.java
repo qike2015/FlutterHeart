@@ -31,6 +31,7 @@ public class HeartLayout extends RelativeLayout
     private HeartThread mHeartThread;
     private HeartHandler mHeartHandler;
 
+
     private int mPointX;       //随机上浮X坐标
     private int mInitX;      //x坐标最大值
     private int mTextHeight;  //文字高度

@@ -2,9 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 version = "1.0"
-group = "com.qike.futterheart"
-def siteUrl = 'https://github.com/zhengxiaopeng/BounceProgressBar' // 项目的主页
-def gitUrl = 'https://github.com/zhengxiaopeng/BounceProgressBar.git' // Git仓库的url
+group = "com.qike.futterhearttransition"
+def siteUrl = 'https://github.com/qike2015/FlutterHeart' // 项目的主页
+def gitUrl = 'https://github.com/qike2015/FlutterHeart' // Git仓库的url
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
@@ -16,7 +16,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -24,6 +23,52 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    options.encoding = "utf-8" //防止gbk映射失败
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    pkg {
+        repo = 'maven'
+        name = 'FutterHeartTransition'
+        licenses = ['Apache-2.0']
+        vcsUrl = gitUrl
+        websiteUrl = siteUrl
+
+        version {
+            name = '1.0'
+            desc = "a superindicatorlibray for viewpager, banner"
+            vcsTag = '1.0'
+        }
+    }
+
+    configurations = ['archives']
 }
 
 dependencies {
